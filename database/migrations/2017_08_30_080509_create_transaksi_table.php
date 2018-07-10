@@ -14,7 +14,7 @@ class CreateTransaksiTable extends Migration
     public function up()
     {
         Schema::create('transaksi', function (Blueprint $table) {
-            $table->increments('tm_nota');
+            $table->string('tm_nota', 9);
             $table->integer('id_user');
             $table->integer('id_pelanggan');
             $table->string('tm_total');
