@@ -15,7 +15,6 @@ class CreateTrigger extends Migration
     {
         DB::unprepared('
         DROP FUNCTION peditharga();
-        DROP FUNCTION pedithargadetail();
 
         CREATE FUNCTION peditharga() RETURNS TRIGGER AS $$
         BEGIN
@@ -25,7 +24,11 @@ class CreateTrigger extends Migration
             
         CREATE TRIGGER editharga BEFORE INSERT OR UPDATE ON transaksi_tmp
             FOR EACH ROW EXECUTE PROCEDURE peditharga();
+        ');
 
+
+        DB::unprepared('
+        DROP FUNCTION pedithargadetail();
 
         CREATE FUNCTION pedithargadetail() RETURNS TRIGGER AS $$
         BEGIN
