@@ -14,6 +14,8 @@ class CreateTrigger extends Migration
     public function up()
     {
         DB::unprepared('
+        DROP TRIGGER editharga ON transakti_tmp;
+
         CREATE FUNCTION peditharga() RETURNS TRIGGER AS $$
         BEGIN
             NEW.total := (NEW.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis));
@@ -26,7 +28,7 @@ class CreateTrigger extends Migration
 
 
         
-    }
+    }a
 
     /**
      * Reverse the migrations.
@@ -35,12 +37,6 @@ class CreateTrigger extends Migration
      */
     public function down()
     {
-        DB::unprepared('
-            DROP TRIGGER editharga ON transakti_tmp;
-        ');
-
-        DB::unprepared('
-            DROP TRIGGER edithargadetail ON transakti_detail;
-        ');
+        //
     }
 }   
