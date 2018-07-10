@@ -29,12 +29,15 @@
     <div class="login-box">
         <div class="logo">
             <a href="javascript:void(0);"><b>LAUNDRY</b></a>
-            <small>LinDev - Aplikasi Laundry</small>
+            <small>LinDev - Aplikasi Kasir Laundry</small>
         </div>
         <div class="card">
             <div class="body">
                 <form id="sign_in" method="POST" action="{{ route('login') }}">
-                    <div class="msg">Silahkan masuk untuk melanjutkan</div>
+                    <div class="msg">
+                        Silahkan masuk untuk melanjutkan
+                        <div class="badge">User: admin | Password: admin123</div>
+                    </div>
                     <div class="input-group{{ $errors->has('nama_pengguna') ? ' has-error' : '' }}">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>

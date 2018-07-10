@@ -17,7 +17,6 @@ class CetaknotaController extends Controller
         $query = Transaksi::select('tm_nota', 'admin.nama_lengkap', 'pelanggan.nama', 'tm_total', 'transaksi.created_at', 'transaksi.updated_at')
         ->join('admin', 'admin.id_user', '=', 'transaksi.id_user')
         ->join('pelanggan', 'pelanggan.id_pelanggan', '=', 'transaksi.id_pelanggan')
-        ->where('tm_nota', $id)
         ->where('tm_nota', $id);
         if($query->count() > 0){
             foreach ($query->get() as $key) {
@@ -40,8 +39,7 @@ class CetaknotaController extends Controller
             ->join('jenis_laundry', 'jenis_laundry.id_jenis', '=', 'transaksi_detail.id_jenis')
             ->where('transaksi_detail.tm_nota', '=', $id)
             ->get();
-        return Datatables::of($cucian)
-        ->make(true);
+        return Datatables::of($cucian)->make(true);
     }
 }
 
