@@ -24,20 +24,9 @@ class CreateTrigger extends Migration
             
         CREATE TRIGGER editharga BEFORE INSERT OR UPDATE ON transaksi_tmp
             FOR EACH ROW EXECUTE PROCEDURE peditharga();
-        ');
 
-
-        DB::unprepared('
-        DROP FUNCTION pedithargadetail();
-
-        CREATE FUNCTION pedithargadetail() RETURNS TRIGGER AS $$
-        BEGIN
-            New.total := (New.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis));
-        END;
-        $$ LANGUAGE plpgsql;
-            
         CREATE TRIGGER edithargadetail BEFORE INSERT OR UPDATE ON transaksi_detail
-            FOR EACH ROW EXECUTE PROCEDURE pedithargadetail();
+            FOR EACH ROW EXECUTE PROCEDURE peditharga();
         ');
     }
 
