@@ -42,7 +42,7 @@ class TransaksiController extends Controller
 
     public function autonumber(){
         $date = date('dmy');
-        $q = DB::table('transaksi')->select(DB::raw('MAX(RIGHT(tm_nota, 3)) AS kd_max'))->where(DB::raw('LEFT(tm_nota, 6)'), '=', $date);
+        $q = DB::table('transaksi')->select(DB::raw('MAX(RIGHT(tm_nota, 3)) AS kd_max'))->where(DB::raw('substring(tm_nota, 1,6)'), '=', $date);
         if($q->count()>0)
         {
             foreach($q->get() as $k)
