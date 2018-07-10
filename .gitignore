@@ -1,6 +1,5 @@
 .env.*.php
 .env.php
-.env
 node_modules/
 public/chart_data/
 vendor/
