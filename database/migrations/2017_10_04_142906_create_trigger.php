@@ -21,7 +21,7 @@ class CreateTrigger extends Migration
         $$ LANGUAGE plpgsql;
             
         CREATE TRIGGER editharga BEFORE UPDATE ON transaksi_tmp
-            FOR EACH ROW EXECUTE PROCEDURE peditharga();
+        FOR EACH ROW EXECUTE PROCEDURE peditharga();
         ');
 
     }
