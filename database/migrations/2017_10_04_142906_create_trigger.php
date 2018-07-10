@@ -14,14 +14,14 @@ class CreateTrigger extends Migration
     public function up()
     {
         DB::unprepared('
-            CREATE FUNCTION peditharga() RETURNS TRIGGER AS $$
-            BEGIN
-                NEW.total := (NEW.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis));
-            END;
-            $$ LANGUAGE plpgsql;
-                
-            CREATE TRIGGER editharga BEFORE INSERT OR UPDATE ON transaksi_tmp
-                FOR EACH ROW EXECUTE PROCEDURE peditharga();
+        CREATE FUNCTION peditharga() RETURNS TRIGGER AS $$
+        BEGIN
+            NEW.total := (NEW.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis));
+        END;
+        $$ LANGUAGE plpgsql;
+            
+        CREATE TRIGGER editharga BEFORE UPDATE ON transaksi_tmp
+            FOR EACH ROW EXECUTE PROCEDURE peditharga();
         ');
 
 
