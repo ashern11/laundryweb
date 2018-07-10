@@ -19,7 +19,7 @@ class CreateTrigger extends Migration
         CREATE FUNCTION peditharga() RETURNS TRIGGER AS $$
         BEGIN
             NEW.total := (NEW.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=NEW.id_jenis));
-            RETURN NULL;
+            RETURN NEW;
         END;
         $$ LANGUAGE plpgsql;
             
