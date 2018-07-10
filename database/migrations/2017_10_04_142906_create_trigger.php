@@ -34,5 +34,9 @@ class CreateTrigger extends Migration
     public function down()
     {
         //
+        DB::unprepared('
+        DROP FUNCTION peditharga;
+        DROP TRIGGER editharga ON transakti_tmp;
+        ');
     }
 }   
