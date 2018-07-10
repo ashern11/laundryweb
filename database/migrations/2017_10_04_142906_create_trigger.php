@@ -14,31 +14,27 @@ class CreateTrigger extends Migration
     public function up()
     {
         DB::unprepared('
-        CREATE TRIGGER editharga BEFORE UPDATE ON `transaksi_tmp` FOR EACH ROW
-            BEGIN
-                SET New.total = New.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis);
-            END
-        ');
+        DROP FUNCTION peditharga();
+        DROP FUNCTION pedithargadetail();
 
-        DB::unprepared('
-        CREATE TRIGGER totalhargad BEFORE INSERT ON `transaksi_tmp` FOR EACH ROW
-            BEGIN
-                SET New.total = New.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis);
-            END
-        ');
+        CREATE FUNCTION peditharga() RETURNS TRIGGER AS $$
+        BEGIN
+            NEW.total := (NEW.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis));
+        END;
+        $$ LANGUAGE plpgsql;
+            
+        CREATE TRIGGER editharga BEFORE INSERT OR UPDATE ON transaksi_tmp
+            FOR EACH ROW EXECUTE PROCEDURE peditharga();
 
-        DB::unprepared('
-        CREATE TRIGGER edithargadetail BEFORE UPDATE ON `transaksi_detail` FOR EACH ROW
-            BEGIN
-                SET New.total = New.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis);
-            END
-        ');
 
-        DB::unprepared('
-        CREATE TRIGGER totalhargadetail BEFORE INSERT ON `transaksi_detail` FOR EACH ROW
-            BEGIN
-                SET New.total = New.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis);
-            END
+        CREATE FUNCTION pedithargadetail() RETURNS TRIGGER AS $$
+        BEGIN
+            New.total := (New.jumlah * (SELECT harga FROM jenis_laundry WHERE id_jenis=New.id_jenis));
+        END;
+        $$ LANGUAGE plpgsql;
+            
+        CREATE TRIGGER edithargadetail BEFORE INSERT OR UPDATE ON transaksi_detail
+            FOR EACH ROW EXECUTE PROCEDURE pedithargadetail();
         ');
     }
 
