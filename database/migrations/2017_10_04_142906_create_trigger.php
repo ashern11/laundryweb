@@ -28,7 +28,7 @@ class CreateTrigger extends Migration
 
 
         
-    }a
+    }
 
     /**
      * Reverse the migrations.
