@@ -14,7 +14,7 @@ class CreateTransaksidetailCreate extends Migration
     public function up()
     {
         Schema::create('transaksi_detail', function (Blueprint $table) {
-            $table->integer('tm_nota');
+            $table->string('tm_nota', 9);
             $table->integer('id_jenis');
             $table->integer('jumlah');
             $table->integer('total')->nullable();

@@ -15,7 +15,7 @@ class CreateTransaksitmpTable extends Migration
     {
         Schema::create('transaksi_tmp', function (Blueprint $table) {
             $table->increments('no');
-            $table->integer('tm_nota');
+            $table->string('tm_nota', 9);
             $table->integer('id_jenis');
             $table->integer('jumlah');
             $table->integer('total')->nullable();
